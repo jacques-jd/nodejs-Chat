@@ -8,28 +8,56 @@ window.onload = () => { //init
 	
 	socket.onopen = function(event) {
 		console.log("Connected to server");
-		socket.send('"Bot": "Welcome to chat!"');
 	}
 
 	socket.onmessage = function(event) {
+		console.log("Clearing chat... ");
+		chat.innerHTML = "";
 		console.log("Recevied raw data: ", event.data);
-		data = JSON.parse("{" + event.data + "}");
+		const data = JSON.parse(event.data);
 		console.log("Received: ", data);
-		for(var sender in data)
+		for(var rawmessage of data)
 		{
-			console.log(sender);
-			chatmsg = document.createTextNode(`${sender}: ${data[sender]}`);
+			let message = JSON.parse(rawmessage);
+			console.log("Iterating message: ", message);
+			console.log("Message sender: ", message.user);
+			console.log("Message contents: ", message.msg);
+			chatmsg = document.createElement("span");
+			chatmsgname = document.createElement("b");
+			chatmsgname.appendChild(document.createTextNode(`${message["user"]}: `));
+			chatmsgcontent = document.createTextNode(message["msg"]);
+			chatmsg.appendChild(chatmsgname);
+			chatmsg.appendChild(chatmsgcontent);
+			chat.appendChild(chatmsg);
+		}
+
+		/*data.map((element, index) => {
+			console.log(element + ", by " + index);
+			chatmsg = document.createTextNode(`${index}: ${element}`);
 			br = document.createElement("br");
 			chat.appendChild(chatmsg);
 			chat.appendChild(br);
-		}
+		});*/
 	};
 
 	document.querySelector("#send").addEventListener("click", () => {
-		var message = `"${uname.value}":"${msg.value}"`;
+		var message = JSON.stringify({
+			"user": uname.value,
+			"msg": msg.value
+		});
 		console.log("Sending: ", message);
 		socket.send(message);
 	});
+
+	msg.addEventListener("keyup", event => {
+		// Number 13 is the "Enter" key on the keyboard
+		if (event.keyCode === 13) {
+		  // Cancel the default action, if needed
+		  event.preventDefault();
+		  // Trigger the button element with a click
+		  document.querySelector("#send").click();
+		}
+	  }); 
 	/*
 	const xhttp = new XMLHttpRequest();
 	document.querySelector("#send").addEventListener("click", ()=>{

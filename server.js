@@ -8,12 +8,20 @@ var chat = [];
 
 wss.on('connection', ws => {
 	console.log("connected to ws");
+	if(chat != []) {
+		ws.send(JSON.stringify(chat));
+	}
+
 	ws.on('message', message => {
 		const data = message.toString();
-		console.log("received message: ", data);
-		chat.push(data);
-		ws.send(chat.toString());
-		
+		console.log("chat has this many messages: ",chat.push(`${data}`));
+		console.log("chat currently: ", chat.toString());
+		ws.send(JSON.stringify(chat));
+
+		wss.clients.forEach(client => {
+			if(client!==ws && client.readyState===WebSocket.OPEN)
+				client.send(JSON.stringify(chat));
+		});
 		/*wss.clients.forEach(function (client){
 			console.log(client);
 			if(client!==ws && client.readyState===WebSocket.OPEN)

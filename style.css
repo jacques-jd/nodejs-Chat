@@ -4,3 +4,11 @@
 	border:1px solid black;
 	margin:1em;
 }
+
+#chat>span {
+	display:block;
+}
+
+#chat>span:nth-child(2n) {
+	background-color:lightgrey;
+}
