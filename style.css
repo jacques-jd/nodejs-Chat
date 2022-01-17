@@ -1,14 +1,24 @@
+#wrapper {
+	width:80%;
+	margin:0 auto;
+}
+
 #chat {
 	height:50vh;
+	width:100%;
 	overflow:auto;
 	border:1px solid black;
-	margin:1em;
+	margin:1em 0;
+	padding:1em;
+}
+
+#msg {
+	width:100%;
 }
 
 #chat>span {
 	display:block;
-}
-
-#chat>span:nth-child(2n) {
-	background-color:lightgrey;
+	padding:0.5em;
+	border-radius:5px;
+	margin:0.3em 0;
 }

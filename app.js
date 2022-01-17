@@ -1,79 +1,84 @@
 let chat, uname, msg;
 
-window.onload = () => { //init
+window.onload = () => {
 	chat = document.querySelector("#chat");
 	uname = document.querySelector("#name");
 	msg = document.querySelector("#msg");
+	ucolor = document.querySelector("#namecolor");
+	msgcolor = document.querySelector("#messagecolor");
+	txtcolor = document.querySelector("#txtcolor");
+
+	msg.focus();
+
 	let socket = new WebSocket('ws://localhost:8080');
 	
 	socket.onopen = function(event) {
-		console.log("Connected to server");
+		console.log("Connection opened");
 	}
 
 	socket.onmessage = function(event) {
-		console.log("Clearing chat... ");
+
+		console.log("Received message. Clearing chat.");
+
 		chat.innerHTML = "";
-		console.log("Recevied raw data: ", event.data);
+
+		console.log("Parsing JSON Data: ", event.data);
+
 		const data = JSON.parse(event.data);
-		console.log("Received: ", data);
+		console.log("Iterating over messages.");
 		for(var rawmessage of data)
 		{
 			let message = JSON.parse(rawmessage);
-			console.log("Iterating message: ", message);
+			
 			console.log("Message sender: ", message.user);
 			console.log("Message contents: ", message.msg);
+			console.log("Colors: " + message.usercolor + "," + message.msgcolor + "," + message.txtcolor);
+
 			chatmsg = document.createElement("span");
 			chatmsgname = document.createElement("b");
+			
 			chatmsgname.appendChild(document.createTextNode(`${message["user"]}: `));
 			chatmsgcontent = document.createTextNode(message["msg"]);
+
+			chatmsgname.style.color = message.usercolor;
+			chatmsg.style.color = message.txtcolor;
+			chatmsg.style.backgroundColor = message.msgcolor;
+
 			chatmsg.appendChild(chatmsgname);
 			chatmsg.appendChild(chatmsgcontent);
 			chat.appendChild(chatmsg);
 		}
-
-		/*data.map((element, index) => {
-			console.log(element + ", by " + index);
-			chatmsg = document.createTextNode(`${index}: ${element}`);
-			br = document.createElement("br");
-			chat.appendChild(chatmsg);
-			chat.appendChild(br);
-		});*/
 	};
 
 	document.querySelector("#send").addEventListener("click", () => {
+		//Error catching
+		if(uname.value.length < 3) {
+			alert("You need a username of 3 chars minimum!");
+			return;
+		}
+		if(msg.value.trim().length < 1) {
+			alert("You must insert a message!")
+			return;
+		}
 		var message = JSON.stringify({
 			"user": uname.value,
-			"msg": msg.value
+			"msg": msg.value,
+			"usercolor": ucolor.value,
+			"msgcolor": msgcolor.value,
+			"txtcolor": txtcolor.value
 		});
 		console.log("Sending: ", message);
 		socket.send(message);
+		msg.value = "";
+		msg.focus();
 	});
 
 	msg.addEventListener("keyup", event => {
-		// Number 13 is the "Enter" key on the keyboard
 		if (event.keyCode === 13) {
-		  // Cancel the default action, if needed
 		  event.preventDefault();
-		  // Trigger the button element with a click
 		  document.querySelector("#send").click();
 		}
 	  }); 
-	/*
-	const xhttp = new XMLHttpRequest();
-	document.querySelector("#send").addEventListener("click", ()=>{
-		const xhttp = new XMLHttpRequest();
-		
-		xhttp.open("POST", "http://localhost:8080");
-		xhttp.onload = function() {
-			console.log(this.responseText);
-			chat.innerHTML = this.responseText;
-		};
-
-		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xhttp.send(`uname=${uname.value}&msg=${msg.value}`);
-		
-	});
-	*/
 	
 };
 
