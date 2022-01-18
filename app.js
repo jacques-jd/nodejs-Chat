@@ -1,27 +1,39 @@
-let chat, uname, msg, ip, connectbutton;
+let chat, uname, msg, ip, ucolor, msgcolor, txtcolor, connectbutton;
 window.onload = () => {
+	ip = document.querySelector("#ip");
+	chat = document.querySelector("#chat");
+	uname = document.querySelector("#name");
+	msg = document.querySelector("#msg");
+	ucolor = document.querySelector("#namecolor");
+	msgcolor = document.querySelector("#messagecolor");
+	txtcolor = document.querySelector("#txtcolor");
+
 	connectbutton = document.querySelector("#connect");
+
+	if(uname.value.length >= 3)
+		connectbutton.removeAttribute("disabled");
+
+	uname.addEventListener("input", function() {
+		if(uname.value.length >= 3)
+			connectbutton.removeAttribute("disabled");
+		else
+			connectbutton.setAttribute("disabled","");
+	});
+
 	connectbutton.onclick = () => {
-		ip = document.querySelector("#ip").value;
-		chat = document.querySelector("#chat");
-		uname = document.querySelector("#name");
-		msg = document.querySelector("#msg");
-		ucolor = document.querySelector("#namecolor");
-		msgcolor = document.querySelector("#messagecolor");
-		txtcolor = document.querySelector("#txtcolor");
-	
 		chat.innerHTML = "";
 
-		msg.focus();
-	
-		let socket = new WebSocket(`ws://${ip}:8080`);
+		let socket = new WebSocket(`ws://${ip.value}:8080`);
 		
 		socket.onopen = function(event) {
 			console.log("Connection opened");
 		}
+
+		socket.onclose = function(event) {
+
+		}
 	
 		socket.onmessage = function(event) {
-	
 			console.log("Received message. Clearing chat.");
 	
 			chat.innerHTML = "";
@@ -29,11 +41,9 @@ window.onload = () => {
 			console.log("Parsing JSON Data: ", event.data);
 	
 			const data = JSON.parse(event.data);
-			console.log("Iterating over messages.");
-			for(var rawmessage of data)
+			console.log("Iterating over messages. ");
+			for(var message of data)
 			{
-				let message = JSON.parse(rawmessage);
-				
 				console.log("Message sender: ", message.user);
 				console.log("Message contents: ", message.msg);
 				console.log("Colors: " + message.usercolor + "," + message.msgcolor + "," + message.txtcolor);
@@ -61,10 +71,10 @@ window.onload = () => {
 				return;
 			}
 			if(msg.value.trim().length < 1) {
-				alert("You must insert a message!")
 				return;
 			}
 			var message = JSON.stringify({
+				"type": "message",
 				"user": uname.value,
 				"msg": msg.value,
 				"usercolor": ucolor.value,
@@ -82,11 +92,8 @@ window.onload = () => {
 			  event.preventDefault();
 			  document.querySelector("#send").click();
 			}
-		  }); 
-		
+		}); 
 	};	
-
-	connectbutton.click();
 };
 
 

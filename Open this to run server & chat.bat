@@ -1,2 +1,2 @@
-start runserver.bat
-http-server
+start http-server
+runserver.bat

@@ -4,7 +4,7 @@
 }
 
 #chat {
-	height:50vh;
+	min-height:40vh;
 	width:100%;
 	overflow:auto;
 	border:1px solid black;
@@ -21,4 +21,21 @@
 	padding:0.5em;
 	border-radius:5px;
 	margin:0.3em 0;
+}
+
+.top {
+	width:100%;
+	display:grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+#userSettings {
+	border:1px solid black;
+	padding:0 1em 1em 1em;
+	margin-right:1em;
+}
+
+#usersOnline {
+	border:1px solid black;
+	padding:0 1em;
 }

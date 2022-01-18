@@ -11,16 +11,27 @@
 <body>
 	<div id="wrapper">
 		<h1>Jacques' Chatroom</h1>
-		<label for="ip">IP: </label>
-		<input id="ip" type="text" value="localhost"><input type="button" id="connect" value="Connect"><br>
-		<label for="name">Name: </label>
-		<input id="name" type="text"><br>
-		<label for="namecolor">Name color: </label>
-		<input id="namecolor" type="color"><br>
-		<label for="messagecolor">Message bg color: </label>
-		<input id="messagecolor" type="color" value="#EEEEEE"><br>
-		<label for="textcolor">Message txt color: </label>
-		<input id="txtcolor" type="color">
+		<div class="top">
+			<div id="userSettings">
+				<p>Settings</p>
+				<label for="ip">IP: </label>
+				<input id="ip" type="text"><input disabled type="button" id="connect" value="Connect"><br>
+				<label for="name">Name: </label>
+				<input id="name" type="text"><br>
+				<label for="namecolor">Name color: </label>
+				<input id="namecolor" type="color"><br>
+				<label for="messagecolor">Message bg color: </label>
+				<input id="messagecolor" type="color" value="#EEEEEE"><br>
+				<label for="textcolor">Message txt color: </label>
+				<input id="txtcolor" type="color">
+			</div>
+			<!--<div id="usersOnline">
+				<p>Currently online:</p>
+				<span id="onlinelist">
+
+				</span>
+			</div>-->
+		</div>
 		<div id="chat">
 
 		</div>
