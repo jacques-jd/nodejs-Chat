@@ -6,6 +6,8 @@
 4. You should now be connected to the chat. Messages will be synced to the server instance
 
 ## How to use with other computers on same network
+Note: You need http-server npm module installed on your computer to run the bat file.
+Install using `npm install -g http-server`
 1. Open "Open this to run server & chat.bat"
 2. Check the IPV4 address of the computer running the server through ipconfig
 3. Navigate to the IPV4 address with port 8081 on a web browser (E.G. 192.168.2.49:8081)
