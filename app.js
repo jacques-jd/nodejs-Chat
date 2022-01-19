@@ -23,7 +23,7 @@ window.onload = () => {
 
 	connectbutton.onclick = () => {
 		chat.innerHTML = "";
-
+		if (socket) return;
 		socket = new WebSocket(`ws://${ip.value}:8080`);
 		
 		socket.onopen = function(event) {
