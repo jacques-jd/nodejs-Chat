@@ -16,7 +16,18 @@
 	width:100%;
 }
 
-#chat>span {
+#chat > span {
+	display:block;
+	padding:0.5em;
+	border-radius:5px;
+	margin:0.3em 0;
+}
+
+#onlinelist {
+	display:block;
+}
+
+#onlinelist > span {
 	display:block;
 	padding:0.5em;
 	border-radius:5px;

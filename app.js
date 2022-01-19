@@ -1,4 +1,4 @@
-let chat, uname, msg, ip, ucolor, msgcolor, txtcolor, connectbutton;
+let chat, uname, msg, ip, ucolor, msgcolor, txtcolor, connectbutton, userlist, socket;
 window.onload = () => {
 	ip = document.querySelector("#ip");
 	chat = document.querySelector("#chat");
@@ -7,6 +7,7 @@ window.onload = () => {
 	ucolor = document.querySelector("#namecolor");
 	msgcolor = document.querySelector("#messagecolor");
 	txtcolor = document.querySelector("#txtcolor");
+	userlist = document.querySelector("#onlinelist");
 
 	connectbutton = document.querySelector("#connect");
 
@@ -23,44 +24,85 @@ window.onload = () => {
 	connectbutton.onclick = () => {
 		chat.innerHTML = "";
 
-		let socket = new WebSocket(`ws://${ip.value}:8080`);
+		socket = new WebSocket(`ws://${ip.value}:8080`);
 		
 		socket.onopen = function(event) {
 			console.log("Connection opened");
-		}
+			socket.send(JSON.stringify({
+				"type": "login",
+				"user": uname.value,
+				"usercolor": ucolor.value,
+				"msgcolor": msgcolor.value,
+			}));
+		};
 
 		socket.onclose = function(event) {
-
-		}
+			socket.send(JSON.stringify({
+				"type": "exit",
+				"user": uname.value,
+				"usercolor": ucolor.value,
+				"msgcolor": msgcolor.value,
+			}));
+		};
 	
 		socket.onmessage = function(event) {
-			console.log("Received message. Clearing chat.");
-	
-			chat.innerHTML = "";
-	
-			console.log("Parsing JSON Data: ", event.data);
-	
+			console.log("Parsing incoming JSON Data: ", event.data);
 			const data = JSON.parse(event.data);
-			console.log("Iterating over messages. ");
-			for(var message of data)
+			switch(data[0].type) 
 			{
-				console.log("Message sender: ", message.user);
-				console.log("Message contents: ", message.msg);
-				console.log("Colors: " + message.usercolor + "," + message.msgcolor + "," + message.txtcolor);
+			case "message":
+				//Chat Packet
+				console.log("Received message. Clearing chat.");
 	
-				chatmsg = document.createElement("span");
-				chatmsgname = document.createElement("b");
-				
-				chatmsgname.appendChild(document.createTextNode(`${message["user"]}: `));
-				chatmsgcontent = document.createTextNode(message["msg"]);
-	
-				chatmsgname.style.color = message.usercolor;
-				chatmsg.style.color = message.txtcolor;
-				chatmsg.style.backgroundColor = message.msgcolor;
-	
-				chatmsg.appendChild(chatmsgname);
-				chatmsg.appendChild(chatmsgcontent);
-				chat.appendChild(chatmsg);
+				chat.innerHTML = "";
+
+				console.log("Iterating over messages. ");
+				for(var message of data)
+				{
+					console.log("Message sender: ", message.user);
+					console.log("Message contents: ", message.msg);
+					console.log("Colors: " + message.usercolor + "," + message.msgcolor + "," + message.txtcolor);
+		
+					let chatmsg = document.createElement("span");
+					let chatmsgname = document.createElement("b");
+					
+					chatmsgname.appendChild(document.createTextNode(`${message.user}: `));
+					
+					let chatmsgcontent = document.createTextNode(message.msg);
+		
+					chatmsgname.style.color = message.usercolor;
+					chatmsg.style.color = message.txtcolor;
+					chatmsg.style.backgroundColor = message.msgcolor;
+		
+					chatmsg.appendChild(chatmsgname);
+					chatmsg.appendChild(chatmsgcontent);
+					chat.appendChild(chatmsg);
+				}
+			break;
+
+			case "login":
+			case "exit":
+				console.log(data[0].type == "login" ? "New user connection received. Clearing user list." : "Disconnected user. Clearing user list.");
+
+				onlinelist.innerHTML = "";
+
+				console.log("Iterating over online users.");
+				for(var user of data)
+				{
+					console.log("User: ", user.user);
+					console.log("Color: " + user.usercolor);
+
+					let listedUser = document.createElement("span");
+					let listedUserName = document.createTextNode(`${user.user}`);
+
+					listedUser.appendChild(listedUserName);
+
+					listedUser.style.color = user.usercolor;
+					listedUser.style.backgroundColor = user.msgcolor;
+
+					userlist.appendChild(listedUser);
+				}
+			break;
 			}
 		};
 	
@@ -96,4 +138,15 @@ window.onload = () => {
 	};	
 };
 
-
+window.onunload = () => {
+	//send disconnection to clients
+	console.log("Window unloading.. Sending")
+	if(socket){
+		socket.send(JSON.stringify({
+			"type": "exit",
+			"user": uname.value,
+			"usercolor": ucolor.value,
+			"msgcolor": msgcolor.value,
+		}));
+	}
+};
