@@ -138,7 +138,7 @@ window.onload = () => {
 	};	
 };
 
-window.onunload = () => {
+window.onbeforeunload = () => {
 	//send disconnection to clients
 	console.log("Window unloading.. Sending")
 	if(socket){
