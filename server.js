@@ -1,8 +1,16 @@
 const http = require("http");
 const qs = require("querystring");
+const express = require("express");
+
+const PORT = process.env.PORT || 3000;
+const INDEX = 'index.html';
+
+const server = express()
+  .use(express.static(__dirname + '/'))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
 
 const { Server } = require('ws')
-
 const wss = new Server({ server });
 
 var chat = [];
