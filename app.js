@@ -1,4 +1,4 @@
-let chat, uname, msg, ip, ucolor, msgcolor, txtcolor, connectbutton, userlist, socket, theme;
+let chat, uname, msg, ip, ucolor, msgcolor, txtcolor, connectbutton, dcbutton, userlist, socket, theme;
 window.onload = () => {
 	ip = document.querySelector("#ip");
 	chat = document.querySelector("#chat");
@@ -15,6 +15,7 @@ window.onload = () => {
 	};
 
 	connectbutton = document.querySelector("#connect");
+	dcbutton = document.querySelector("#disconnect");
 
 	if(uname.value.length >= 3)
 		connectbutton.removeAttribute("disabled");
@@ -39,23 +40,29 @@ window.onload = () => {
 	}
 
 	connectbutton.onclick = () => {
-		chat.innerHTML = "";
 		if (socket) return;
+		chat.innerHTML = "";
 		socket = new WebSocket(`ws://${ip.value}:8080`);
 		
-		socket.onopen = function(event) {
-			console.log("Connection opened");
+		dcbutton.onclick = () => {
+			if(!socket) return;
+			console.log("Disconnecting");
 			socket.send(JSON.stringify({
-				"type": "login",
+				"type": "exit",
 				"user": uname.value,
 				"usercolor": ucolor.value,
 				"msgcolor": msgcolor.value,
 			}));
-		};
+			chat.innerHTML = "";
+			onlinelist.innerHTML = "";
+			socket.close();
+			socket = null;
+		}
 
-		socket.onclose = function(event) {
+		socket.onopen = function(event) {
+			console.log("Connection opened");
 			socket.send(JSON.stringify({
-				"type": "exit",
+				"type": "login",
 				"user": uname.value,
 				"usercolor": ucolor.value,
 				"msgcolor": msgcolor.value,

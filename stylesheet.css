@@ -50,7 +50,7 @@ input {
 
 label[for="msg"]{
 	display:grid;
-	grid-template-columns: 1fr 7fr;
+	grid-template-columns: fit-content(1ch) 1fr;
 	padding:0.5em;
 	background-color:var(--card);
 }
