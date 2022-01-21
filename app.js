@@ -1,6 +1,6 @@
-let chat, uname, msg, ip, ucolor, msgcolor, txtcolor, connectbutton, dcbutton, userlist, socket, theme;
+let chat, uname, msg, /*ip, */ ucolor, msgcolor, txtcolor, connectbutton, dcbutton, userlist, socket, theme;
 window.onload = () => {
-	ip = document.querySelector("#ip");
+	//ip = document.querySelector("#ip");
 	chat = document.querySelector("#chat");
 	uname = document.querySelector("#name");
 	msg = document.querySelector("#msg");
@@ -42,7 +42,7 @@ window.onload = () => {
 	connectbutton.onclick = () => {
 		if (socket) return;
 		chat.innerHTML = "";
-		socket = new WebSocket(`ws://${ip.value}:8080`);
+		socket = new WebSocket(`ws://localhost:5000`);
 		
 		dcbutton.onclick = () => {
 			if(!socket) return;

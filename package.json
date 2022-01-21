@@ -1,0 +1,24 @@
+{
+  "name": "nodejs-chat",
+  "version": "1.0.0",
+  "description": "1. Open \"runserver.bat\"\r 2. Open up index.html with a web browser\r 3. Enter localhost as the IP address (no port needed) to connect client\r 4. You should now be connected to the chat. Messages will be synced to the server instance",
+  "main": "server.js",
+  "dependencies": {
+    "ws": "^8.4.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacques-jd/nodejs-Chat.git"
+  },
+  "author": "hexagonest (Jacques Dancause)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacques-jd/nodejs-Chat/issues"
+  },
+  "homepage": "https://github.com/jacques-jd/nodejs-Chat#readme"
+}
