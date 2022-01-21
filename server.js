@@ -37,7 +37,8 @@ wss.on('connection', ws => {
 
 			console.log("Sending chat to all other clients...");
 			wss.clients.forEach(client => {
-				if(client!==ws && client.readyState===Server.OPEN)
+				console.log(client.readyState);
+				if(client!==ws /*&& client.readyState===Server.OPEN*/)
 					client.send(JSON.stringify(chat));
 			});
 
@@ -52,7 +53,8 @@ wss.on('connection', ws => {
 
 			console.log("Sending new connect to other clients..");
 			wss.clients.forEach(client => {
-				if(client!==ws && client.readyState===Server.OPEN)
+				console.log(client.readyState);
+				if(client!==ws /*&& client.readyState===Server.OPEN*/)
 					client.send(JSON.stringify(users));
 			});
 
@@ -66,10 +68,19 @@ wss.on('connection', ws => {
 
 			console.log("Sending D/C to other clients..");
 			wss.clients.forEach(client => {
-				if(client!==ws && client.readyState===Server.OPEN)
+				console.log(client.readyState);
+				if(client!==ws /*&& client.readyState===Server.OPEN*/)
 					client.send(JSON.stringify(users));
 			});
 
+		break;
+		case "ping":
+			console.log("ping received from ", data.user);
+
+			/*wss.clients.forEach(client => {
+				if(client!==ws)
+					client.send(JSON.stringify(users));
+			});*/
 		break;
 		}
 	});

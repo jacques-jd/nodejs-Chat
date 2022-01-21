@@ -1,4 +1,4 @@
-let chat, uname, msg, /*ip, */ ucolor, msgcolor, txtcolor, connectbutton, dcbutton, userlist, socket, theme;
+let chat, uname, msg, /*ip, */ ucolor, msgcolor, txtcolor, connectbutton, dcbutton, userlist, socket, theme, pinger;
 
 window.onload = () => {
 	const HOST = location.origin.replace(/^http/, 'ws');
@@ -50,6 +50,7 @@ window.onload = () => {
 		
 		dcbutton.onclick = () => {
 			if(!socket) return;
+			clearInterval(pinger);
 			console.log("Disconnecting");
 			socket.send(JSON.stringify({
 				"type": "exit",
@@ -64,19 +65,27 @@ window.onload = () => {
 		}
 
 		socket.onopen = function(event) {
-			console.log("Connection opened");
+			console.log("Connection opened.");
 			socket.send(JSON.stringify({
 				"type": "login",
 				"user": uname.value,
 				"usercolor": ucolor.value,
 				"msgcolor": msgcolor.value,
 			}));
+			console.log("Beginning pings...");
+			pinger = setInterval(()=>{
+				socket.send(JSON.stringify({
+					"type": "ping",
+					"user": uname.value,
+				}));
+			},10000);
 		};
 	
 		socket.onmessage = function(event) {
 			console.log("Parsing incoming JSON Data: ", event.data);
 			const data = JSON.parse(event.data);
-			switch(data[0].type) 
+			const firstMessage = data[0] || data;
+			switch(firstMessage.type) 
 			{
 			case "message":
 				//Chat Packet
