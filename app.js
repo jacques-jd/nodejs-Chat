@@ -1,7 +1,7 @@
 let chat, uname, msg, /*ip, */ ucolor, msgcolor, txtcolor, connectbutton, dcbutton, userlist, socket, theme;
 
 window.onload = () => {
-	const HOST = location.origin.replace(/^http/, 'ws');
+	const HOST = location.origin.replace(/^https/, 'ws');
 
 	//ip = document.querySelector("#ip");
 	chat = document.querySelector("#chat");
