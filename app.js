@@ -1,4 +1,4 @@
-let chat, uname, msg, ip, ucolor, msgcolor, txtcolor, connectbutton, userlist, socket;
+let chat, uname, msg, ip, ucolor, msgcolor, txtcolor, connectbutton, userlist, socket, theme;
 window.onload = () => {
 	ip = document.querySelector("#ip");
 	chat = document.querySelector("#chat");
@@ -8,18 +8,35 @@ window.onload = () => {
 	msgcolor = document.querySelector("#messagecolor");
 	txtcolor = document.querySelector("#txtcolor");
 	userlist = document.querySelector("#onlinelist");
+	theme= {
+		bgSel: document.querySelector("#col1"),
+		bgCard: document.querySelector("#col2"),
+		reset: document.querySelector("#resetColor"),
+	};
 
 	connectbutton = document.querySelector("#connect");
 
 	if(uname.value.length >= 3)
 		connectbutton.removeAttribute("disabled");
 
-	uname.addEventListener("input", function() {
+	theme.bgSel.value = getComputedStyle(document.documentElement).getPropertyValue("--bg");
+	theme.bgCard.value = getComputedStyle(document.documentElement).getPropertyValue("--card");
+
+	theme.ogBg = theme.bgSel.value;
+	theme.ogFg = theme.bgCard.value;
+
+	theme.bgSel.onchange = theme.bgCard.onchange = theme.reset.onclick = event => {
+		if(event.target === theme.reset) { theme.bgSel.value = theme.ogBg; theme.bgCard.value = theme.ogFg; }
+		document.documentElement.style.setProperty("--bg", theme.bgSel.value);
+		document.documentElement.style.setProperty("--card", theme.bgCard.value);
+	}
+
+	uname.oninput = () => {
 		if(uname.value.length >= 3)
 			connectbutton.removeAttribute("disabled");
 		else
 			connectbutton.setAttribute("disabled","");
-	});
+	}
 
 	connectbutton.onclick = () => {
 		chat.innerHTML = "";

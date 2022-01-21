@@ -12,8 +12,8 @@
 	<div id="wrapper">
 		<h1>Jacques' Chatroom</h1>
 		<div class="grid">
-			<div id="userSettings" class="card">
-				Settings
+			<div class="card messagesettings">
+				<div class="title">User Settings</div>
 				<div class="inputline">
 					<label for="ip">IP: </label>
 					<input id="ip" type="text"><input disabled type="button" id="connect" value="Connect">
@@ -22,21 +22,35 @@
 					<label for="name">Name: </label>
 					<input id="name" type="text">
 				</div>
-				<div class="inputline">
+				<div class="gridded colour inputline">
 					<label for="namecolor">Name color: </label>
 					<input id="namecolor" type="color">
 				</div>
-				<div class="inputline">
+				<div class="gridded colour inputline">
 					<label for="messagecolor">Message bg color: </label>
 					<input id="messagecolor" type="color" value="#EEEEEE">
 				</div>
-				<div class="inputline">
+				<div class="gridded colour inputline">
 					<label for="textcolor">Message txt color: </label>
 					<input id="txtcolor" type="color">
 				</div>
 			</div>
+			<div class="card themesettings">
+				<div class="title">Theme Settings</div>
+				<div class="gridded colour inputline">
+					<label for="col1">Background Color: </label>
+					<input id="col1" type="color">
+				</div>
+				<div class="gridded colour inputline">
+					<label for="col2">Foreground Color: </label>
+					<input id="col2" type="color">
+				</div>
+				<div class="inputline">
+					<input id="resetColor" type="button" value="Reset Theme">
+				</div>
+			</div>
 			<div id="usersOnline" class="card">
-				Currently online:
+				<div class="title">Currently online:</div>
 				<div id="onlinelist">
 
 				</div>
@@ -45,9 +59,12 @@
 	
 			</div>
 			<div class="messageArea">
-				<label for="msg">Message: </label>
-				<input id="msg" type="text">
-				<input value="Send" id="send" type="button">
+				<div class="gridded inputline">
+					<label for="msg">Message: 
+					<input id="msg" type="text">
+					</label>
+					<input value="Send" id="send" type="button">
+				</div>
 			</div>
 		</div>
 	</div>
