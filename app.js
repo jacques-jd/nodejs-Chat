@@ -1,5 +1,8 @@
 let chat, uname, msg, /*ip, */ ucolor, msgcolor, txtcolor, connectbutton, dcbutton, userlist, socket, theme;
+
 window.onload = () => {
+	const HOST = location.origin.replace(/^http/, 'ws');
+
 	//ip = document.querySelector("#ip");
 	chat = document.querySelector("#chat");
 	uname = document.querySelector("#name");
@@ -42,7 +45,8 @@ window.onload = () => {
 	connectbutton.onclick = () => {
 		if (socket) return;
 		chat.innerHTML = "";
-		socket = new WebSocket(`ws://localhost:5000`);
+		console.log(HOST); 
+		socket = new WebSocket("wss://peaceful-river-92424.herokuapp.com:5000");
 		
 		dcbutton.onclick = () => {
 			if(!socket) return;

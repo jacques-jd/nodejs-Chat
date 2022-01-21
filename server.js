@@ -1,8 +1,9 @@
 const http = require("http");
 const qs = require("querystring");
-const WebSocket = require('ws')
 
-const wss = new WebSocket.Server({ port: 8080 });
+const { Server } = require('ws')
+
+const wss = new Server({ server });
 
 var chat = [];
 var users = [];
