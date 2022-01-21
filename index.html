@@ -11,33 +11,45 @@
 <body>
 	<div id="wrapper">
 		<h1>Jacques' Chatroom</h1>
-		<div class="top">
-			<div id="userSettings">
-				<p>Settings</p>
-				<label for="ip">IP: </label>
-				<input id="ip" type="text"><input disabled type="button" id="connect" value="Connect"><br>
-				<label for="name">Name: </label>
-				<input id="name" type="text"><br>
-				<label for="namecolor">Name color: </label>
-				<input id="namecolor" type="color"><br>
-				<label for="messagecolor">Message bg color: </label>
-				<input id="messagecolor" type="color" value="#EEEEEE"><br>
-				<label for="textcolor">Message txt color: </label>
-				<input id="txtcolor" type="color">
+		<div class="grid">
+			<div id="userSettings" class="card">
+				Settings
+				<div class="inputline">
+					<label for="ip">IP: </label>
+					<input id="ip" type="text"><input disabled type="button" id="connect" value="Connect">
+				</div>
+				<div class="inputline">
+					<label for="name">Name: </label>
+					<input id="name" type="text">
+				</div>
+				<div class="inputline">
+					<label for="namecolor">Name color: </label>
+					<input id="namecolor" type="color">
+				</div>
+				<div class="inputline">
+					<label for="messagecolor">Message bg color: </label>
+					<input id="messagecolor" type="color" value="#EEEEEE">
+				</div>
+				<div class="inputline">
+					<label for="textcolor">Message txt color: </label>
+					<input id="txtcolor" type="color">
+				</div>
 			</div>
-			<div id="usersOnline">
-				<p>Currently online:</p>
+			<div id="usersOnline" class="card">
+				Currently online:
 				<div id="onlinelist">
 
 				</div>
 			</div>
+			<div id="chat" class="card">
+	
+			</div>
+			<div class="messageArea">
+				<label for="msg">Message: </label>
+				<input id="msg" type="text">
+				<input value="Send" id="send" type="button">
+			</div>
 		</div>
-		<div id="chat">
-
-		</div>
-		<label for="msg">Message: </label>
-		<input id="msg" type="text">
-		<input value="Send" id="send" type="button">
 	</div>
 </body>
 </html>
