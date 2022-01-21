@@ -131,7 +131,8 @@ label[for="msg"]{
 }
 
 .gridded.colour {
-	grid-template-columns:1fr 2fr;
+	grid-template-columns:1fr 0.5fr;
+	grid-gap:1em;
 }
 
 .messageArea>.gridded {
@@ -156,5 +157,6 @@ label[for="msg"]{
 		"sett them onli"
 		"chat chat onli"
 		"mess mess mess";
+		grid-template-columns: 2fr fit-content(100ch) 1fr;
 	}
 }
