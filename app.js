@@ -46,7 +46,7 @@ window.onload = () => {
 		if (socket) return;
 		chat.innerHTML = "";
 		console.log(HOST); 
-		socket = new WebSocket("wss://peaceful-river-92424.herokuapp.com:5000");
+		socket = new WebSocket(HOST);
 		
 		dcbutton.onclick = () => {
 			if(!socket) return;
