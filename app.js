@@ -114,7 +114,7 @@ window.onload = () => {
 					
 					let chatmsgcontent = document.createTextNode(message.msg);
 					timestamp.style.fontSize = "0.8em";
-					timestamp.style.color = "#00000077";
+					timestamp.style.color = calculateColor(message.msgcolor) ? "#00000099" : "#FFFFFF99";
 					chatmsgname.style.color = message.usercolor;
 					chatmsg.style.color = message.txtcolor;
 					chatmsg.style.backgroundColor = message.msgcolor;
@@ -202,3 +202,30 @@ window.onbeforeunload = () => {
 		}));
 	}
 };
+
+function calculateColor(color)
+{
+	if(color.startsWith("#")) {
+		color = color.slice(1);
+	}
+	if(color.length === 3) {
+		color = color[0] + color[0] + color[1] + color[1] + color[2] + color[2];
+	}
+	if(color.length === 4) {
+		color = color[0] + color[0] + color[1] + color[1] + color[2] + color[2];
+	}
+	if(color.length == 8) {
+		color = color.slice(0,6);
+	}
+	if(color.length !== 6 || color.match(/[g-z]/)) {
+		throw new Error("Invalid hex");
+	}
+
+	let r = Number(`0x${color[0] + color[1]}`),
+		g = Number(`0x${color[2] + color[3]}`),
+		b = Number(`0x${color[4] + color[5]}`);
+
+	console.log(`${r} ${g} ${b}`);
+
+	return ((r+g+b)/3)>100;
+}
