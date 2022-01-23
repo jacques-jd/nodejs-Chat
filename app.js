@@ -92,31 +92,39 @@ window.onload = () => {
 			case "message":
 				//Chat Packet
 				console.log("Received message. Clearing chat.");
-	
+				
+				let scrollToBottom = chat.scrollTop == chat.scrollTopMax;
+
 				chat.innerHTML = "";
 
 				console.log("Iterating over messages. ");
+				
 				for(var message of data)
 				{
 					console.log("Message sender: ", message.user);
 					console.log("Message contents: ", message.msg);
 					console.log("Colors: " + message.usercolor + "," + message.msgcolor + "," + message.txtcolor);
-		
+					
+					let timestamp = document.createElement("span");
 					let chatmsg = document.createElement("span");
 					let chatmsgname = document.createElement("b");
 					
+					timestamp.appendChild(document.createTextNode(`${message.time} `));
 					chatmsgname.appendChild(document.createTextNode(`${message.user}: `));
 					
 					let chatmsgcontent = document.createTextNode(message.msg);
-		
+					timestamp.style.fontSize = "0.8em";
+					timestamp.style.color = "#00000077";
 					chatmsgname.style.color = message.usercolor;
 					chatmsg.style.color = message.txtcolor;
 					chatmsg.style.backgroundColor = message.msgcolor;
 		
+					chatmsg.appendChild(timestamp);
 					chatmsg.appendChild(chatmsgname);
 					chatmsg.appendChild(chatmsgcontent);
 					chat.appendChild(chatmsg);
 				}
+				if(scrollToBottom) chat.scrollTop = chat.scrollTopMax;
 			break;
 
 			case "login":
@@ -162,6 +170,7 @@ window.onload = () => {
 				"type": "message",
 				"user": uname.value,
 				"msg": msg.value,
+				"time": new Date().toLocaleTimeString(navigator.language, {hour12:false, hour: '2-digit', minute:'2-digit'}),
 				"usercolor": ucolor.value,
 				"msgcolor": msgcolor.value,
 				"txtcolor": txtcolor.value
