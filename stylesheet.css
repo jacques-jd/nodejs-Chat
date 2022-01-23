@@ -131,7 +131,7 @@ label[for="msg"]{
 }
 
 .gridded.colour {
-	grid-template-columns:1fr 0.5fr;
+	grid-template-columns:minmax(0.5fr, fit-content(100ch)) 1fr;
 	grid-gap:1em;
 }
 

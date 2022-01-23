@@ -60,7 +60,6 @@ wss.on('connection', ws => {
 
 		break;
 		case "exit":
-
 			console.log("User disconnected.. Sending to client...", data);
 			users.splice(users.findIndex(element => element.user == data.user),1);
 
@@ -77,7 +76,9 @@ wss.on('connection', ws => {
 		case "ping":
 			console.log("Updating User list, ping received from ", data.user);
 			users.splice(users.findIndex(element => element.user == data.user),1);
+			console.log("debug:", users);
 			users.push(data);
+			console.log("debug 2:",users)
 			ws.send(JSON.stringify(users));
 		break;
 		}
