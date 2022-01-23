@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700&display=swap');
 *{box-sizing: border-box;}
-body,input{font-family:'Raleway';}
+body,input{font-family:'Rubik';}
 :root{
 	--bg:#F4DFD0;
 	--card:#FDEFEF;
