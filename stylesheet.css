@@ -7,7 +7,10 @@ body,input{font-family:'Raleway';}
 	--input:#fff8f8;
 }
 
-
+#wrapper {
+	width:90vw;
+	margin:0 auto;
+}
 
 a, nav {
 	color:#a89486;
@@ -39,10 +42,6 @@ input:focus {
 	outline:none;
 }
 
-#wrapper {
-	width:90vw;
-	margin:0 auto;
-}
 
 #chat, #userSettings, #usersOnline, label[for="msg"], input, #onlinelist>span, #chat>span, .card {
 	border:none;
@@ -172,6 +171,9 @@ nav {
 @media only screen and (width>1000px) {
 	nav {
 		position:fixed;
+	}
+	#wrapper {
+		width:80vw;
 	}
 	.grid {
 		grid-template-areas:
