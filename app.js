@@ -77,6 +77,8 @@ window.onload = () => {
 				socket.send(JSON.stringify({
 					"type": "ping",
 					"user": uname.value,
+					"usercolor": ucolor.value,
+					"msgcolor": msgcolor.value,
 				}));
 			},10000);
 		};
@@ -119,7 +121,10 @@ window.onload = () => {
 
 			case "login":
 			case "exit":
-				console.log(data[0].type == "login" ? "New user connection received. Clearing user list." : "Disconnected user. Clearing user list.");
+			case "ping":
+				console.log(data[0].type == "ping" ? "Ping received." : 
+				data[0].type == "login" ? "New user connection received. Clearing user list." : 
+				"Disconnected user. Clearing user list.");
 
 				onlinelist.innerHTML = "";
 
@@ -140,6 +145,7 @@ window.onload = () => {
 					userlist.appendChild(listedUser);
 				}
 			break;
+
 			}
 		};
 	

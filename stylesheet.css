@@ -90,7 +90,7 @@ label[for="msg"]{
 }
 
 #chat {
-	min-height:40vh;
+	height:40vh;
 	overflow:auto;
 	padding:1em;
 	grid-area:chat;

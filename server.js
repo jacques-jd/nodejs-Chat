@@ -75,12 +75,10 @@ wss.on('connection', ws => {
 
 		break;
 		case "ping":
-			console.log("ping received from ", data.user);
-
-			/*wss.clients.forEach(client => {
-				if(client!==ws)
-					client.send(JSON.stringify(users));
-			});*/
+			console.log("Updating User list, ping received from ", data.user);
+			users.splice(users.findIndex(element => element.user == data.user),1);
+			users.push(data);
+			ws.send(JSON.stringify(users));
 		break;
 		}
 	});
