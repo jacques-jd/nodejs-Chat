@@ -12,12 +12,9 @@ body,input{font-family:'Raleway';}
 	margin:0 auto;
 }
 
-a, nav {
+a, a:visited, nav {
 	color:#a89486;
 	text-decoration: none;
-}
-a:visited {
-	color:#a89486;
 }
 
 h1 {
