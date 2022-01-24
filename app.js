@@ -13,9 +13,35 @@ window.onload = () => {
 	userlist = document.querySelector("#onlinelist");
 	theme= {
 		bgSel: document.querySelector("#col1"),
-		bgCard: document.querySelector("#col2"),
-		reset: document.querySelector("#resetColor"),
+		fgSel: document.querySelector("#col2"),
+		col1Sel: document.querySelector("#col3"),
+		col2Sel: document.querySelector("#col4"),
+		theme1: document.querySelector("#theme1"),
+		theme2: document.querySelector("#theme2"),
+		theme3: document.querySelector("#theme3"),
+		preset1: {
+			bg:'#F4DFD0',
+			fg:'#FDEFEF',
+			col1:'#fff8f8',
+			col2:'#ffeaea',
+		},
+		preset2: {
+			bg:'#C9CCD5',
+			fg:'#FFE3E3',
+			col1:'#E4D8DC',
+			col2:'#93B5C6',
+		},
+		preset3: {
+			bg:'#BAABDA',
+			fg:'#FFF9F9',
+			col1:'#D6E5FA',
+			col2:'#D77FA1',
+		},
 	};
+
+	theme.preset1.link = "#"+darkenColor(theme.preset1.bg,50);
+	theme.preset2.link = "#"+darkenColor(theme.preset2.bg,50);
+	theme.preset3.link = "#"+darkenColor(theme.preset3.bg,50);
 
 	connectbutton = document.querySelector("#connect");
 	dcbutton = document.querySelector("#disconnect");
@@ -24,16 +50,47 @@ window.onload = () => {
 		connectbutton.removeAttribute("disabled");
 
 	theme.bgSel.value = getComputedStyle(document.documentElement).getPropertyValue("--bg");
-	theme.bgCard.value = getComputedStyle(document.documentElement).getPropertyValue("--card");
+	theme.fgSel.value = getComputedStyle(document.documentElement).getPropertyValue("--fg");
+	theme.col1Sel.value = getComputedStyle(document.documentElement).getPropertyValue("--col1");
+	theme.col2Sel.value = getComputedStyle(document.documentElement).getPropertyValue("--col2");
 
 	theme.ogBg = theme.bgSel.value;
-	theme.ogFg = theme.bgCard.value;
+	theme.ogFg = theme.fgSel.value;
 
-	theme.bgSel.onchange = theme.bgCard.onchange = theme.reset.onclick = event => {
-		if(event.target === theme.reset) { theme.bgSel.value = theme.ogBg; theme.bgCard.value = theme.ogFg; }
-		document.documentElement.style.setProperty("--bg", theme.bgSel.value);
-		document.documentElement.style.setProperty("--card", theme.bgCard.value);
+	let setTheme = colors => {
+		if (colors.bg) {
+			for(let col in colors) {
+				document.documentElement.style.setProperty(`--${col}`, colors[col]);
+			}
+			return;
+		}
+		for (let i = 0; i < colors.length; i++) {
+			document.documentElement.style.setProperty(`${i<2?i<1?'--bg':'--fg':`--col${i-1}`}`, colors[i]);
+		}
+		document.documentElement.style.setProperty(`--link`, darkenColor(colors.bg,50));
 	}
+
+	theme.bgSel.onchange = theme.fgSel.onchange = theme.col1Sel.onchange = theme.col2Sel.onchange = () => {
+		setTheme({bg:theme.bgSel.value, fg:theme.fgSel.value, col1:theme.col1Sel.value, col2:theme.col2Sel.value});
+	}
+
+	theme1.onclick = theme2.onclick = theme3.onclick = event => {
+		let elem = event.currentTarget;
+		if(elem.id == "theme1")
+		{
+			setTheme(theme.preset1);
+		} 
+		else if (elem.id == "theme2")
+		{
+			setTheme(theme.preset2);
+		} 
+		else 
+		{
+			setTheme(theme.preset3);
+		}
+	}
+
+	setTheme(theme.preset1);
 
 	uname.oninput = () => {
 		if(uname.value.length >= 3)
@@ -203,7 +260,7 @@ window.onbeforeunload = () => {
 	}
 };
 
-function calculateColor(color)
+function validateHex(color)
 {
 	if(color.startsWith("#")) {
 		color = color.slice(1);
@@ -211,21 +268,41 @@ function calculateColor(color)
 	if(color.length === 3) {
 		color = color[0] + color[0] + color[1] + color[1] + color[2] + color[2];
 	}
-	if(color.length === 4) {
-		color = color[0] + color[0] + color[1] + color[1] + color[2] + color[2];
-	}
-	if(color.length == 8) {
-		color = color.slice(0,6);
-	}
 	if(color.length !== 6 || color.match(/[g-z]/)) {
 		throw new Error("Invalid hex");
 	}
 
+	return color;
+}
+
+function getRGB(color)
+{
 	let r = Number(`0x${color[0] + color[1]}`),
 		g = Number(`0x${color[2] + color[3]}`),
 		b = Number(`0x${color[4] + color[5]}`);
 
-	console.log(`${r} ${g} ${b}`);
+	return {r:r,g:g,b:b};
+}
 
-	return ((r+g+b)/3)>100;
+function calculateColor(color)
+{
+	color = validateHex(color);
+
+	let rgb = getRGB(color);
+
+	return ((rgb.r+rgb.g+rgb.b)/3)>100;
+}
+
+function darkenColor(color, percent)
+{
+	if (percent > 1) percent = percent/100;
+	color = validateHex(color);
+	let rgb = getRGB(color);
+
+	let r = Math.floor(rgb.r * (1 - percent)),
+		g = Math.floor(rgb.g * (1 - percent)),
+		b = Math.floor(rgb.b * (1 - percent));
+	color = r.toString(16) + g.toString(16) + b.toString(16);
+
+	return color;
 }
