@@ -151,7 +151,7 @@ label[for="name"] {
 #chat {
     height: 40vh;
     overflow: auto;
-    padding: 1%;
+    padding: 1em;
     grid-area: chat;
 }
 
@@ -271,7 +271,7 @@ label[for="name"] {
             "chat chat chat"
             "mess mess mess"
             "them them them";
-        grid-gap: 2%;
+        grid-gap: 1em;
         grid-template-columns: fit-content(100ch) 2fr 1fr;
     }
 }
