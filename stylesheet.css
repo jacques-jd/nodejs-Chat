@@ -151,12 +151,13 @@ label[for="name"] {
 #chat {
     height: 40vh;
     overflow: auto;
-    padding: 1em;
+    padding: 1%;
     grid-area: chat;
 }
 
 .dropdown {
     padding: 1em;
+    width: 90%;
 }
 
 .messagesettings {
@@ -231,17 +232,61 @@ label[for="name"] {
 #namecolor,
 #messagecolor,
 #txtcolor {
-    /*display: none;*/
+    display: none;
+}
+
+#txtcolorlabel,
+#namecolorlabel,
+#messagecolorlabel {
+    width: 3em;
+    height: 1em;
+    box-shadow: 0px 1px 1px 1px #00000044;
+    border-radius: 5px;
+
+    transition: box-shadow 0.2s;
+}
+
+#txtcolorlabel:hover,
+#namecolorlabel:hover,
+#messagecolorlabel:hover {
+    box-shadow: 0px 1px 6px 1px #00000044;
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 20em) {
+    .dropdown {
+        padding: 1em;
+        width: 90vw;
+    }
+
+    .messagesettings {
+        grid-area: sett;
+        padding: 1em;
+    }
+
+    .themesettings {
+        grid-area: them;
+        padding: 1em;
+    }
+
+    #usersOnline {
+        padding: 1em;
+        grid-area: onli;
+    }
 }
 
 @media screen and (min-width: 30em) {
+    .dropdown {
+        width: fit-content;
+    }
     .grid {
         grid-template-areas:
             "sett onli onli"
             "chat chat chat"
             "mess mess mess"
             "them them them";
-        grid-gap: 1em;
+        grid-gap: 2%;
+        grid-template-columns: fit-content(100ch) 2fr 1fr;
     }
 }
 
@@ -254,6 +299,5 @@ label[for="name"] {
             "sett them onli"
             "chat chat onli"
             "mess mess mess";
-        grid-template-columns: fit-content(100ch) 2fr 1fr;
     }
 }
