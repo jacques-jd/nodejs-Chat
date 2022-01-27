@@ -231,7 +231,7 @@ label[for="name"] {
 #namecolor,
 #messagecolor,
 #txtcolor {
-    display: none;
+    /*display: none;*/
 }
 
 @media screen and (min-width: 30em) {
