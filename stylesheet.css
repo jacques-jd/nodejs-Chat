@@ -157,7 +157,8 @@ label[for="name"] {
 
 .dropdown {
     padding: 1em;
-    width: 90%;
+    width: fit-content;
+    max-width: 90vw;
 }
 
 .messagesettings {
@@ -258,28 +259,6 @@ label[for="name"] {
 #messagecolorlabel:active {
     box-shadow: 0px 1px 1px 0px #00000044;
     border-radius: 5px;
-}
-
-@media screen and (max-width: 20em) {
-    .dropdown {
-        padding: 1em;
-        width: 90vw;
-    }
-
-    .messagesettings {
-        grid-area: sett;
-        padding: 1em;
-    }
-
-    .themesettings {
-        grid-area: them;
-        padding: 1em;
-    }
-
-    #usersOnline {
-        padding: 1em;
-        grid-area: onli;
-    }
 }
 
 @media screen and (min-width: 30em) {
