@@ -243,13 +243,13 @@ label[for="name"] {
     box-shadow: 0px 1px 1px 1px #00000044;
     border-radius: 5px;
 
-    transition: box-shadow 0.2s;
+    transition: box-shadow 0.2s, background-color 0.2s;
 }
 
 #txtcolorlabel:hover,
 #namecolorlabel:hover,
 #messagecolorlabel:hover {
-    box-shadow: 0px 1px 6px 1px #00000044;
+    box-shadow: 0px 1px 9px 1px #00000044;
     border-radius: 5px;
 }
 
