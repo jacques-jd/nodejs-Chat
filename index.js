@@ -21,11 +21,11 @@ window.addEventListener("load", event => {
     });
 
     txtcolorlabel.addEventListener("mouseenter", () => {
-        txtcolorlabel.style.backgroundColor = invertColor(txtcolor.value);
+        txtcolorlabel.style.backgroundColor = lightenColor(txtcolor.value, 50);
     });
 
     messagecolorlabel.addEventListener("mouseenter", () => {
-        messagecolorlabel.style.backgroundColor = invertColor(messagecolor.value);
+        messagecolorlabel.style.backgroundColor = lightenColor(messagecolor.value, 50);
     });
 
     namecolorlabel.addEventListener("mouseleave", () => {
@@ -71,7 +71,7 @@ function getHex(rgb) {
         hexg = (rgb.g.toString(16).length === 1 ? "0" : "") + rgb.g.toString(16),
         hexb = (rgb.b.toString(16).length === 1 ? "0" : "") + rgb.b.toString(16);
 
-    return "#" + validateHex(hexr + hexg + hexb);
+    return validateHex(hexr + hexg + hexb);
 }
 
 function invertColor(color) {

@@ -253,6 +253,13 @@ label[for="name"] {
     border-radius: 5px;
 }
 
+#txtcolorlabel:active,
+#namecolorlabel:active,
+#messagecolorlabel:active {
+    box-shadow: 0px 1px 1px 0px #00000044;
+    border-radius: 5px;
+}
+
 @media screen and (max-width: 20em) {
     .dropdown {
         padding: 1em;
