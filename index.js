@@ -16,29 +16,29 @@ window.addEventListener("load", event => {
         messagecolorlabel.style.backgroundColor = messagecolor.value;
     });
 
-    namecolorlabel.addEventListener("mouseenter", () => {
-        namecolorlabel.style.backgroundColor = lightenColor(namecolor.value, 50);
-    });
+    // namecolorlabel.addEventListener("mouseenter", () => {
+    //     namecolorlabel.style.backgroundColor = lightenColor(namecolor.value, 50);
+    // });
 
-    txtcolorlabel.addEventListener("mouseenter", () => {
-        txtcolorlabel.style.backgroundColor = lightenColor(txtcolor.value, 50);
-    });
+    // txtcolorlabel.addEventListener("mouseenter", () => {
+    //     txtcolorlabel.style.backgroundColor = lightenColor(txtcolor.value, 50);
+    // });
 
-    messagecolorlabel.addEventListener("mouseenter", () => {
-        messagecolorlabel.style.backgroundColor = lightenColor(messagecolor.value, 50);
-    });
+    // messagecolorlabel.addEventListener("mouseenter", () => {
+    //     messagecolorlabel.style.backgroundColor = lightenColor(messagecolor.value, 50);
+    // });
 
-    namecolorlabel.addEventListener("mouseleave", () => {
-        namecolorlabel.style.backgroundColor = namecolor.value;
-    });
+    // namecolorlabel.addEventListener("mouseleave", () => {
+    //     namecolorlabel.style.backgroundColor = namecolor.value;
+    // });
 
-    txtcolorlabel.addEventListener("mouseleave", () => {
-        txtcolorlabel.style.backgroundColor = txtcolor.value;
-    });
+    // txtcolorlabel.addEventListener("mouseleave", () => {
+    //     txtcolorlabel.style.backgroundColor = txtcolor.value;
+    // });
 
-    messagecolorlabel.addEventListener("mouseleave", () => {
-        messagecolorlabel.style.backgroundColor = messagecolor.value;
-    });
+    // messagecolorlabel.addEventListener("mouseleave", () => {
+    //     messagecolorlabel.style.backgroundColor = messagecolor.value;
+    // });
 
 });
 function validateHex(color) {
@@ -100,18 +100,18 @@ function darkenColor(color, percent)
     return color;
 }
 
-function lightenColor(color, percent)
-{
-    if (percent > 1) percent = percent / 100;
+// function lightenColor(color, percent)
+// {
+//     if (percent > 1) percent = percent / 100;
 
-    color = validateHex(color);
-    let rgb = getRGB(color);
+//     color = validateHex(color);
+//     let rgb = getRGB(color);
 
-    let r = Math.min(Math.floor(rgb.r + (255 * percent)), 255),
-        g = Math.min(Math.floor(rgb.g + (255 * percent)), 255),
-        b = Math.min(Math.floor(rgb.b + (255 * percent)), 255);
+//     let r = Math.min(Math.floor(rgb.r + (255 * percent)), 255),
+//         g = Math.min(Math.floor(rgb.g + (255 * percent)), 255),
+//         b = Math.min(Math.floor(rgb.b + (255 * percent)), 255);
         
-    color = getHex({r: r.toString(16), g:g.toString(16), b: b.toString(16)});
+//     color = getHex({r: r.toString(16), g:g.toString(16), b: b.toString(16)});
 
-    return color;
-}
+//     return color;
+// }
