@@ -199,3 +199,37 @@ window.onbeforeunload = () =>
 		}));
 	}
 };
+
+
+function validateHex(color)
+{
+	if(color.startsWith("#")) {
+		color = color.slice(1);
+	}
+	if(color.length === 3) {
+		color = color[0] + color[0] + color[1] + color[1] + color[2] + color[2];
+	}
+	if(color.length !== 6 || color.match(/[g-z]/)) {
+		throw new Error("Invalid hex");
+	}
+
+	return color;
+}
+
+function getRGB(color)
+{
+	let r = Number(`0x${color[0] + color[1]}`),
+		g = Number(`0x${color[2] + color[3]}`),
+		b = Number(`0x${color[4] + color[5]}`);
+
+	return {r:r,g:g,b:b};
+}
+
+function calculateColor(color)
+{
+	color = validateHex(color);
+
+	let rgb = getRGB(color);
+
+	return ((rgb.r+rgb.g+rgb.b)/3)>100;
+}

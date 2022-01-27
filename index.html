@@ -12,8 +12,6 @@
 	<meta name="msapplication-config" content="https://jacq.dev/favicon/browserconfig.xml">
 	<meta name="theme-color" content="#ffffff">
 
-
-
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,6 +20,8 @@
 	<script type="text/javascript" src="app.js"></script>
 	<script src="https://jacq.dev/themes.js"></script>
 	<script src="https://jacq.dev/thememanager.js"></script>
+	<script src="https://jacq.dev/dropdown.js"></script>
+	<script src="https://jacq.dev/index.js"></script>
 	<!-- ver 1.1 -->
 </head>
 
@@ -29,7 +29,11 @@
 	<div id="wrapper">
 		<nav>
 			<a href="https://jacq.dev/">Home</a> |
-			<a href="https://jacq.dev/splicer">Image Splicer</a>
+			<a href="https://jacq.dev/splicer">Image Splicer</a> |
+			<span class="droptrigger">Theme Selection</span>
+			<div class="dropdown">
+				<div id="selector"></div>
+			</div>
 		</nav>
 		<h1>chatroom;</h1>
 		<div class="grid">
@@ -47,28 +51,18 @@
 					<label for="name">Name: </label>
 					<input id="name" type="text">
 					<input disabled type="button" id="connect" value="Connect"><input type="button" id="disconnect"
-						value="Disconnect">
-					<label for="namecolor">Name color: </label>
-					<input id="namecolor" type="color">
-					<label for="messagecolor">Message bg color: </label>
-					<input id="messagecolor" type="color" value="#FDEFEF">
-					<label for="textcolor">Message txt color: </label>
-					<input id="txtcolor" type="color">
-				</div>
-			</div>
-			<div class="card themesettings">
-				<div class="title">Customise Theme</div>
-				<div class="subtitle">Click on a color to change it</div>
-				<div class="gridded inputline customtheme">
-					<label for="col1"><input id="col1" type="color"></label>
-					<label for="col2"><input id="col2" type="color"></label>
-					<label for="col3"><input id="col3" type="color"></label>
-					<label for="col4"><input id="col4" type="color"></label>
-				</div>
-				<div class="space title">Preset Themes</div>
-				<div id="selector" class="flex">
+						   value="Disconnect">
 
 				</div>
+			</div>
+			<div class="gridded inputline card themesettings">
+				Name color: <label for="namecolor"><input id="namecolor" type="color"></label>
+
+				Message bg color: <label for="messagecolor"><input id="messagecolor" type="color"
+						   value="#FDEFEF"></label>
+
+				Message txt color: <label for="txtcolor"><input id="txtcolor" type="color"></label>
+
 			</div>
 			<div id="usersOnline" class="card">
 				<div class="title">Currently online:</div>
