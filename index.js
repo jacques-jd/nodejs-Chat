@@ -16,6 +16,27 @@ window.addEventListener("load", event => {
         messagecolorlabel.style.backgroundColor = messagecolor.value;
     });
 
+    msg.addEventListener("mouseenter", () => {
+        if(formsg.style.backgroundColor != "var(--col2)")
+            formsg.style.boxShadow = "0px 1px 9px 0px #00000044";
+    });
+
+    msg.addEventListener("mouseleave", () => {
+        formsg.style.boxShadow = "0px 1px 2px 0px #00000044";
+    });
+
+    msg.addEventListener("focus", () => {
+        formsg.style.backgroundColor = "var(--col2)";
+        formsg.style.boxShadow = "0px 1px 1px 0px #00000044";
+    });
+
+    msg.addEventListener("focusout", () => {
+        formsg.style.backgroundColor = "var(--col1)";
+        formsg.style.boxShadow = "0px 1px 2px 0px #00000044";
+    });
+
+    
+
     // namecolorlabel.addEventListener("mouseenter", () => {
     //     namecolorlabel.style.backgroundColor = lightenColor(namecolor.value, 50);
     // });

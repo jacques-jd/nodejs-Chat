@@ -51,7 +51,7 @@ body,
 input,
 a,
 label {
-    transition: background-color 0.3s;
+    transition: background-color 0.2s, box-shadow 0.1s;
 }
 
 body {
@@ -244,21 +244,27 @@ label[for="name"] {
     box-shadow: 0px 1px 1px 1px #00000044;
     border-radius: 5px;
 
-    transition: box-shadow 0.2s, background-color 0.2s;
+    transition: box-shadow 0.1s, background-color 0.2s;
 }
 
 #txtcolorlabel:hover,
 #namecolorlabel:hover,
-#messagecolorlabel:hover {
-    box-shadow: 0px 1px 9px 1px #00000044;
-    border-radius: 5px;
+#messagecolorlabel:hover,
+input[type="button"]:not([disabled]):hover,
+#name:hover {
+    box-shadow: 0px 1px 9px 0px #00000044;
 }
 
 #txtcolorlabel:active,
 #namecolorlabel:active,
-#messagecolorlabel:active {
+#messagecolorlabel:active,
+input[type="button"]:not([disabled]):active,
+#name:focus {
     box-shadow: 0px 1px 1px 0px #00000044;
-    border-radius: 5px;
+}
+
+#name:focus {
+    background-color: var(--col2);
 }
 
 @media screen and (min-width: 30em) {
