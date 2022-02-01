@@ -267,6 +267,11 @@ input[type="button"]:not([disabled]):active,
     background-color: var(--col2);
 }
 
+.copy {
+    color: var(--bglink);
+    text-align: center;
+}
+
 @media screen and (min-width: 30em) {
     .dropdown {
         width: fit-content;
